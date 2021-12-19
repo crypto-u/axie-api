@@ -48,9 +48,49 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 
 client.on('message', async msg => {
   switch (msg.content) {
-    case "ping":
-      msg.reply("Pong!");
+    case "!test":
+      msg.reply("Test 123!");
       break;
+
+      case "!invites":
+        msg.guild.invites.fetch().then((invites) => {
+          const inviteCounter = {
+            bob: 19,
+            joe: 30,
+          }
+      
+          invites.forEach((invite) => {
+            const { uses, inviter } = invite
+            const { username, discriminator } = inviter
+      
+            const name = `${username}#${discriminator}`
+      
+            inviteCounter[name] = (inviteCounter[name] || 0) + uses
+          })
+      
+          let replyText = 'Invites:'
+      
+          const sortedInvites = Object.keys(inviteCounter).sort(
+            (a, b) => inviteCounter[b] - inviteCounter[a]
+          )
+      
+          //console.log(sortedInvites)
+      
+          sortedInvites.length = 3
+      
+          for (const invite of sortedInvites) {
+            const count = inviteCounter[invite]
+            replyText += `\n${invite} has invited ${count} member(s)!`
+          }
+      
+          msg.channel.send(replyText)
+        })
+        // msg.guild.invites.fetch()
+        // .then(guild => {
+        //   console.log(guild)
+        // })
+        // .catch(console.error)
+        break;
     //our meme command below
     case "!meme":
       msg.channel.send("Here's your meme!"); //Replies to user command
@@ -71,9 +111,11 @@ client.on('message', async msg => {
           .then(function(response) {
 
             const roninAddress = response[0].roninAddress
+            console.log(roninAddress)
             axios.get(`https://game-api.axie.technology/api/v1/${roninAddress}`)
             .then((response) => {
               var slp =  response.data;
+              console.log(slp)
               msg.channel.send(`${msg.member.user.username}#${msg.member.user.discriminator}`+" Axie Infinity Gaming Info: " + "\n" + "\n");
               msg.channel.send(
                 "Player Name: " + slp.name  + "\n" +
