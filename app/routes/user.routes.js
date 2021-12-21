@@ -12,6 +12,10 @@ module.exports = function(app) {
 
   app.get("/api/test/all", controller.allAccess);
 
+  // app.get("/", (req, res) =>{
+  //   res.json({"message": "The Bot is listening"})
+  // });
+
   app.get(
     "/api/test/user",
     [authJwt.verifyToken],
