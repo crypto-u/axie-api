@@ -76,7 +76,7 @@ client.on('message', async msg => {
       
           //console.log(sortedInvites)
       
-          sortedInvites.length = 3
+          sortedInvites.length = 4
       
           for (const invite of sortedInvites) {
             const count = inviteCounter[invite]
@@ -98,7 +98,7 @@ client.on('message', async msg => {
       msg.channel.send(img); //send the image URL
       break;
     
-      case "/user":
+      case "!user":
 
       var disordTag = msg.member.user.username+'#'+msg.member.user.discriminator;
   
