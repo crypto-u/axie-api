@@ -47,6 +47,18 @@ client.on('message', async msg => {
       msg.reply("Test 123!");
       break;
 
+      case "!invite":
+        let invite = await msg.channel.createInvite({
+          maxAge: 0,
+          maxUses: 0 // maximum times it can be used
+       },
+       `Requested with command by ${msg.author.tag}`
+    )
+    .catch(console.log);
+
+    msg.channel.send(invite ? `Here's your invite: ${invite}` : "There has been an error during the creation of the invite.");
+        break;
+
       case "!invites":
         msg.guild.invites.fetch().then((invites) => {
           const inviteCounter = {
