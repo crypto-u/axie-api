@@ -129,7 +129,7 @@ client.on('message', async msg => {
                 "Player Name: " + slp.name  + "\n" +
                 "Total SLP: " + slp.total_slp.toString()  + "\n" +
                 "Last Claim SLP: " + slp.last_claim.toString() + "\n" + 
-                "Next Claim SLP: " + timeConverter(slp.next_claim) + "\n" +
+                "Next Claim Date: " + timeConverter(slp.next_claim) + "\n" +
                 "MMR: " + slp.mmr.toString() + "\n" 
                 ) 
             })
@@ -146,14 +146,11 @@ client.on('message', async msg => {
 
 function timeConverter(UNIX_timestamp){
   var a = new Date(UNIX_timestamp * 1000);
-  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var year = a.getFullYear();
-  var month = months[a.getMonth()];
-  var date = a.getDate();
-  var hour = a.getHours();
-  var min = a.getMinutes();
-  var sec = a.getSeconds();
-  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+  var month = ("0" + (a.getMonth() + 1)).slice(-2);
+  var date = ("0" + a.getDate()).slice(-2);
+
+  var time = date + ' ' + month + ' ' + year;
   return time;
 }
 
