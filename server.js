@@ -146,11 +146,14 @@ client.on('message', async msg => {
 
 function timeConverter(UNIX_timestamp){
   var a = new Date(UNIX_timestamp * 1000);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var year = a.getFullYear();
-  var month = ("0" + (a.getMonth() + 1)).slice(-2);
-  var date = ("0" + a.getDate()).slice(-2);
-
-  var time = date + ' ' + month + ' ' + year;
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var sec = a.getSeconds();
+  var time = date + ' ' + month + ', ' + 2022;
   return time;
 }
 
