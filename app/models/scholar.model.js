@@ -3,6 +3,9 @@ module.exports = (sequelize, Sequelize) => {
       ronin_address: {
         type: Sequelize.STRING
        },
+       ronin_short: {
+        type: Sequelize.STRING
+       },
       success: {
        type: Sequelize.BOOLEAN
       },
