@@ -12,6 +12,7 @@ module.exports = function(app) {
 
   app.post("/api/players", controller.create);
   app.get("/api/players",  controller.findAll);
+  app.delete("/api/players/:id",  controller.deleteOne);
   app.get("/api/players/:id", [authJwt.verifyToken, authJwt.isModerator], controller.findOne);
 
 };

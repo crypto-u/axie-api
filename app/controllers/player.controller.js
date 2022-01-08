@@ -65,3 +65,29 @@ exports.findOne = (req, res) => {
       });
     });
 };
+
+exports.deleteOne = (req, res) => {
+  const id = req.params.id;
+
+  Player.destroy({
+    where: {id}
+   }).then(() => {
+    res.status(204).end();
+   });
+
+  // Player.destroy(id)
+  //   .then(data => {
+  //     if (data) {
+  //       res.send(data);
+  //     } else {
+  //       res.status(404).send({
+  //         message: `Cannot find Player with id=${id}.`
+  //       });
+  //     }
+  //   })
+  //   .catch(err => {
+  //     res.status(500).send({
+  //       message: "Error retrieving Player with id=" + id
+  //     });
+  //   });
+};

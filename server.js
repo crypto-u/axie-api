@@ -26,6 +26,7 @@ app.get("/", (req, res) => {
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 require('./app/routes/player.routes')(app);
+require('./app/routes/scholar.routes')(app);
 
 const { Client, Intents } = require('discord.js');
 
