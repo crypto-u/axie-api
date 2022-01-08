@@ -45,8 +45,10 @@ createScholar = async (ronninAddress,scholarName) => {
   }
 
   populateData = async (data, data2, data3) => {
+    
     const scholar = {
       ronin_address: data2,
+      ronin_short: data2.substring(0, 4)+'...'+data2.slice(-4),
       scholar_name: data3,
       success: data.success,
       cache_last_updated: data.cache_last_updated,
