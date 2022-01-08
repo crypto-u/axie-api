@@ -28,9 +28,11 @@ getPlayers = async () => {
 }
 
 createScholar = async (ronninAddress,scholarName) => {
+
+  const roninPrefix = "ronin:";
   try {
 
-    axios.get(`https://game-api.axie.technology/api/v1/${ronninAddress}`)
+    axios.get(`https://game-api.axie.technology/api/v1/${roninPrefix}${ronninAddress}`)
     .then((response) => {
       populateData(response.data, ronninAddress, scholarName );
     })
