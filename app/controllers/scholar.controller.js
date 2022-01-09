@@ -20,35 +20,56 @@ exports.create = async (req, res) => {
 };
 
 getPlayers = async () => {
-  
-  return  Player.findAll()
+
+  return Player.findAll()
     .catch(err => {
-     console.log(err)
+      console.log(err)
     });
 }
 
-createScholar = async (ronninAddress,scholarName) => {
+createScholar = async (ronninAddress, scholarName) => {
 
   const roninPrefix = "ronin:";
   try {
 
     axios.get(`https://game-api.axie.technology/api/v1/${roninPrefix}${ronninAddress}`)
-    .then((response) => {
-      populateData(response.data, ronninAddress, scholarName );
-    })
-    .catch(err => {
-      
-    })
-    
+      .then((response) => {
+        populateData(response.data, ronninAddress, scholarName);
+      })
+      .catch(err => {
+
+      })
+
   } catch (error) {
-    
+
   }
 
   populateData = async (data, data2, data3) => {
-    
+
+    var timestamp = data.next_claim
+    var date = new Date(timestamp * 1000);
+
+    var date1 = new Date();
+    const hello = JSON.stringify(date)
+    const gogo = hello.substring(1, 11).replace("1970", "2022").replace("-", "/").replace("-", "/");
+    const gogo2 = hello.substring(1, 11).replace("1970", "2022");
+    console.log(gogo);
+
+    const hello2 = JSON.stringify(date1);
+    const gogo8 = hello2.substring(1, 11).replace("-", "/").replace("-", "/");
+    console.log(gogo8);
+
+    var date5 = new Date(gogo);
+    var date6 = new Date(gogo8);
+
+    var Difference_In_Time = date5.getTime() - date6.getTime();
+
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
     const scholar = {
       ronin_address: data2,
-      ronin_short: data2.substring(0, 4)+'...'+data2.slice(-4),
+      ronin_short: data2.substring(0, 4) + '...' + data2.slice(-4),
+      remaining_days: Difference_In_Days,
       scholar_name: data3,
       success: data.success,
       cache_last_updated: data.cache_last_updated,
@@ -66,14 +87,15 @@ createScholar = async (ronninAddress,scholarName) => {
       last_claim: data.last_claim,
       lifetime_slp: data.lifetime_slp,
       name: data.name,
-      next_claim: data.next_claim
+      next_claim: data.next_claim,
+      next_claim_date: gogo2
     };
 
     await Scholar.create(scholar)
-    .catch(err => {
-    console.log(err)
-    });
-}
+      .catch(err => {
+        console.log(err)
+      });
+  }
 
 
 
@@ -118,8 +140,8 @@ exports.findOne = (req, res) => {
 exports.deleteOne = (req, res) => {
   const id = req.params.id;
   Scholar.destroy({
-    where: {id}
-   }).then(() => {
+    where: { id }
+  }).then(() => {
     res.status(204).end();
-   });
+  });
 };

@@ -6,6 +6,9 @@ module.exports = (sequelize, Sequelize) => {
        ronin_short: {
         type: Sequelize.STRING
        },
+       remaining_days: {
+        type: Sequelize.INTEGER
+       },
       success: {
        type: Sequelize.BOOLEAN
       },
@@ -57,9 +60,12 @@ module.exports = (sequelize, Sequelize) => {
       name: {
         type: Sequelize.STRING
       },
+      next_claim_date: {
+       type: Sequelize.STRING
+      },
       next_claim: {
-       type: Sequelize.INTEGER
-      }
+        type: Sequelize.INTEGER
+       }
     });
   
     return Scholars;
